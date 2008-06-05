@@ -4,7 +4,7 @@
 Acts as state pattern is a Rails plugin to implement state pattern using mixology gem, 
 which mixin/unmix module when you change state.
 
-== Install
+== Requirement
 * sudo gem install mixology (see http://www.somethingnimble.com/bliki/mixology)
 
 == Usage
@@ -12,13 +12,13 @@ In the model:
 
   acts_as_state [:foo,:bar]
   
-You can add :state_column option if column name is not 'state', add :initial_state option if migration has not default value.
+You can add :state_column option if column name is not 'state', add :initial_state option if migration does not specify default value.
+Then we have these method:
 
-Then we have 
-  1 .foo?, bar? methods will return true/false
-  2. foo!, bar! methods will change state
-  3. model.current_state
-  4. Depend on your state column name, `state` and `state=`
+1. @model.foo?, @model.bar? return true or false
+2. @model.foo!, @model.bar! change model state
+3. @model.current_state
+4. Depend on your state column name, `@model.state` and `@model.state=`
 
 Define state module inside your model class when you need:
 
@@ -34,9 +34,10 @@ Define state module inside your model class when you need:
     end
   end
 
-model.blah # 'foo'
-model.bar!
-model.blah # 'bar'
+@model.foo!
+@model.blah # 'foo'
+@model.bar!
+@model.blah # 'bar'
 
 == Author & License
 Author:: Wen-Tien Chang(mailto:ihower@gmail.com)
