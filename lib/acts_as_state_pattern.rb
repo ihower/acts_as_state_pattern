@@ -4,13 +4,13 @@ module Handlino
 
     def self.included(base)
       base.send(:extend, ClassMethods)
-      base.send(:include, InstanceMethods)
     end
 
     module ClassMethods
 
       def acts_as_state( states, options={})
 
+        include InstanceMethods
         class_inheritable_accessor :state_column
         class_inheritable_accessor :default_state
 
@@ -53,22 +53,22 @@ module Handlino
 
     module InstanceMethods
       def current_state
-        @current_state = attributes[self.state_column] || self.default_state
+        @current_state = self.read_attribute(self.state_column)  || self.default_state
       end
 
       def current_state=(state_name)
         self.send("#{state_name}!")
       end
 
-      def method_missing(method, *args, &block)
-        self.send("#{self.current_state}!")
-        if self.respond_to?(method)
-          self.send(method,*args,&block)
-        else
-          super
-        end
-      end
-
+     def method_missing(method, *args, &block)
+       self.send("#{self.current_state}!") if self.current_state
+       if self.respond_to?(method)
+         self.send(method,*args,&block)
+       else
+         super
+       end
+     end
+     
     end
   end
 end

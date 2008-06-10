@@ -12,7 +12,7 @@ In the model:
 
   acts_as_state [:foo,:bar]
   
-You can add :state_column option if column name is not 'state', add :initial_state option if migration does not specify default value.
+You can add :state_column option if column name is not 'state', add :default_state option if migration does not specify default value.
 Then we have these method:
 
 1. @model.foo?, @model.bar? return true or false
@@ -40,6 +40,6 @@ Define state module inside your model class when you need:
 @model.blah # 'bar'
 
 == Author & License
-Author:: Wen-Tien Chang(mailto:ihower@gmail.com)
-Copyright:: Copyright (c) 2008 Handlino Inc.
+Author: Wen-Tien Chang(mailto:ihower@gmail.com)
+Copyright (c) 2008 Handlino Inc.
 Licensed under the MIT: http://www.opensource.org/licenses/mit-license.php
