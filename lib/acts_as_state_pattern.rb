@@ -60,14 +60,9 @@ module Handlino
         self.send("#{state_name}!")
       end
 
-     def method_missing(method, *args, &block)
-       self.send("#{self.current_state}!") if self.current_state
-       if self.respond_to?(method)
-         self.send(method,*args,&block)
-       else
-         super
-       end
-     end
+      def after_initialize
+        self.send("#{self.current_state}!") if self.current_state
+      end
      
     end
   end
